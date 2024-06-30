@@ -1,5 +1,6 @@
 # Coding Tasks
 This is a couple of tasks for my CoGrammar software engineering bootcamp.
+Both tasks should work with vanilla Python, provided it is a recent version.
 
 ## Linked lists
 In `linked_list.py` I have made an implementation of a linked list that uses
@@ -12,4 +13,4 @@ with python syntax.
 
 ## Dijkstra's shortest Path
 In `shortest_path.py` I have made an implementation of dijkstra's algorithm
-on a graph, which i also implemented. Currently it is incomplete
+on a graph, which I also implemented.

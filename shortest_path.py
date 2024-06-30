@@ -51,12 +51,12 @@ class Graph:
         return connected_edges
     
     def dijkstra_path_distance(self, start, end) -> list[str]:
-        """Returns the shortest path from one vertex to another using
-        dijkstra's algorithm"""
+        """Returns the shortest distance from one vertex to another 
+        using dijkstra's algorithm"""
 
         # Create shortest path dict and visited dict
         to_visit = []
-        visited = []
+        unvisited = list(self.vertex_list)
         path_distance = {}
         
         # Set all other vertices to infinity
@@ -78,18 +78,21 @@ class Graph:
 
                 # If the new distance is smaller than the old, replace
                 # distance
-                if new_distance < path_distance[current_node]:
+                if new_distance < path_distance[connected_to]:
                     path_distance[connected_to] = new_distance
                 
                 # Add new node to connected
                 to_visit.append(connected_to)
             
-            visited.append(current_node)
+            # Remove vertex from unvisited list
+            unvisited.remove(current_node)
             
-            while current_node in visited:
+            # Get the next vertex to look at
+            while current_node not in unvisited:
                 current_node = to_visit.pop(0)
         
-        return path_distance
+        # Return the distance calculated at the key to the end vertex
+        return path_distance[end]
 
 
 
@@ -113,7 +116,7 @@ if __name__ == "__main__":
     
     shortest_dist = graph.dijkstra_path_distance(1,10)
 
-    print(shortest_dist)
+    print(f"The shortest distance from 1 to 10 is {shortest_dist}")
         
 
 
