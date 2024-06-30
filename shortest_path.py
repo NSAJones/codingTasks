@@ -8,6 +8,16 @@ class Edge:
     def __init__(self,connection:tuple, weight:float = 0) -> None:
         self.connection = connection
         self.weight = weight
+    
+    def other_vertex(self, vertex):
+        if self.connection[0] == vertex:
+            return self.connection[1]
+        
+        elif self.connection[1] == vertex:
+            return self.connection[0]
+        
+        else:
+            raise ValueError("Vertex not in this connection")
 
 class Graph:
     """Implementation of a weighted, undirected graph"""
@@ -40,22 +50,70 @@ class Graph:
         
         return connected_edges
     
-    def dijkstra_shortest_path(self, start, end) -> list[str]:
+    def dijkstra_path_distance(self, start, end) -> list[str]:
         """Returns the shortest path from one vertex to another using
         dijkstra's algorithm"""
 
-        # Create shortest path dict
-        shortest_path = {start:0}
-        current_vertex = start
+        # Create shortest path dict and visited dict
+        to_visit = []
+        visited = []
+        path_distance = {}
         
         # Set all other vertices to infinity
-        for v in self.vertex_dict:
-            shortest_path[v] = inf
+        for v in self.vertex_list:
+            path_distance[v] = inf
         
-        for _ in range(len(shortest_path)):
+        # Set starting vertex distanct to zero
+        path_distance[start] = 0
+        current_node = start
+        
+        while current_node != end:
             # Get adjacent edges
-            edges = self.get_edges(current_vertex)
+            edges = self.get_edges(current_node)
 
+            # Loop throgh adjacent edges
+            for e in edges:
+                connected_to = e.other_vertex(current_node)
+                new_distance = e.weight + path_distance[current_node]
+
+                # If the new distance is smaller than the old, replace
+                # distance
+                if new_distance < path_distance[current_node]:
+                    path_distance[connected_to] = new_distance
+                
+                # Add new node to connected
+                to_visit.append(connected_to)
+            
+            visited.append(current_node)
+            
+            while current_node in visited:
+                current_node = to_visit.pop(0)
+        
+        return path_distance
+
+
+
+if __name__ == "__main__":
+    graph = Graph(1,2,3,4,5,6,7,8,9,10,
+                  edge_list=[
+                      Edge((1,2),3),
+                      Edge((2,6),15),
+                      Edge((6,10),12),
+                      Edge((1,3),5),
+                      Edge((3,4),3),
+                      Edge((4,6),1),
+                      Edge((4,5),4),
+                      Edge((5,6),4),
+                      Edge((6,7),1),
+                      Edge((7,8),5),
+                      Edge((8,9),7),
+                      Edge((9,10),10),
+                      Edge((6,9),3),
+                  ])
+    
+    shortest_dist = graph.dijkstra_path_distance(1,10)
+
+    print(shortest_dist)
         
 
 

@@ -11,4 +11,5 @@ adaptability by making the class use magic methods to make it easier to use
 with python syntax.
 
 ## Dijkstra's shortest Path
-
+In `shortest_path.py` I have made an implementation of dijkstra's algorithm
+on a graph, which i also implemented. Currently it is incomplete
