@@ -181,10 +181,6 @@ class LinkedList:
         """Returns string to be used in print"""
         return str(self)
         
-        
-
-
-    
     
 
 if __name__ == "__main__":

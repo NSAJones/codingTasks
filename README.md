@@ -10,5 +10,5 @@ Implementing a linked list shows my understanding of said topic and also shows
 adaptability by making the class use magic methods to make it easier to use
 with python syntax.
 
-## Dykstra's shortest Path
+## Dijkstra's shortest Path
 
